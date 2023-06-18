@@ -7,7 +7,7 @@ class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+기  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -52,7 +52,15 @@ class _MainScreenState extends State<MainScreen> {
                   ]),
         ],
       ),
-      body: WebViewWidget(controller: controller),
+      body: WillPopScope(
+          onWillPop: () async {
+            if (await controller.canGoBack()) {
+              await controller.goBack();
+              return false;
+            }
+            return true;
+          },
+      child: WebViewWidget(controller: controller)),
     );
   }
 }
