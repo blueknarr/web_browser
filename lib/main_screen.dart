@@ -11,7 +11,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final controller = WebViewController()
+  WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(const Color(0x00000000))
     ..setNavigationDelegate(
@@ -41,7 +41,9 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
           PopupMenuButton<String>(
-              onSelected: (value) {},
+              onSelected: (value) {
+                controller.loadRequest(Uri.parse(value));
+              },
               itemBuilder: (context) => [
                     const PopupMenuItem<String>(
                         value: 'https://www.google.com', child: Text('구글')),
